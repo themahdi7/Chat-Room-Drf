@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'accounts_module.apps.AccountsModuleConfig',
     # External apps
     'drf_spectacular',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

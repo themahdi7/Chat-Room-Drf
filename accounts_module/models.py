@@ -10,6 +10,7 @@ class User(AbstractBaseUser):
         max_length=40,
         unique=True,
     )
+    nickname = models.CharField(verbose_name=_('nickname'), max_length=150, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     objects = UserManager()
