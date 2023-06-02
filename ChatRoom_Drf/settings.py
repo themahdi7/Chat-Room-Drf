@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts_module.apps.AccountsModuleConfig',
     # External apps
     'drf_spectacular',
+    'rest_framework_simplejwt.token_blacklist',
     'rest_framework',
 ]
 
@@ -143,8 +144,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=5000),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=5000),
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=120),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
 }
 
 # Spectacular Setting

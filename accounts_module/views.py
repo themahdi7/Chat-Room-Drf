@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from accounts_module.serializers import UserViewSerializer, UserRegistrationSerializer
+from accounts_module.serializers import UserViewSerializer, UserRegistrationSerializer, LogOutSerializer
 
 
 class UserRegisterView(APIView):
@@ -23,7 +23,6 @@ class UserRegisterView(APIView):
                 'access': str(refresh.access_token),
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 class UserView(APIView):
@@ -49,3 +48,17 @@ class UserView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogOutView(APIView):
+    """
+    Block users refresh tokens
+    """
+    serializer_class = LogOutSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, *args):
+        sz = self.serializer_class(data=request.data)
+        sz.is_valid(raise_exception=True)
+        sz.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
