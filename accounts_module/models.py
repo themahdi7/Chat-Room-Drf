@@ -11,6 +11,7 @@ class User(AbstractBaseUser):
         unique=True,
     )
     nickname = models.CharField(verbose_name=_('nickname'), max_length=150, null=True, blank=True)
+    avatar = models.ImageField(upload_to="images/avatars", blank=True, null=True, verbose_name=_('avatar'))
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     objects = UserManager()

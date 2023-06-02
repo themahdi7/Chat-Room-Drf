@@ -1,4 +1,5 @@
 from rest_framework import status, permissions
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -7,6 +8,9 @@ from accounts_module.serializers import UserViewSerializer, UserRegistrationSeri
 
 
 class UserRegisterView(APIView):
+    """
+    Register new user and response access and refresh token
+    """
     serializer_class = UserRegistrationSerializer
 
     def post(self, request):
@@ -25,6 +29,7 @@ class UserRegisterView(APIView):
 class UserView(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = UserViewSerializer
+    parser_classes = (MultiPartParser,)
 
     def get(self, request):
         """
