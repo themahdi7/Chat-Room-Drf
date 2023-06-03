@@ -5,6 +5,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractBaseUser):
+    Status_Choices = (
+        ('online', 'online'),
+        ('offline', 'offline'),
+    )
+
     username = models.CharField(
         verbose_name=_('username'),
         max_length=40,
@@ -12,6 +17,7 @@ class User(AbstractBaseUser):
     )
     nickname = models.CharField(verbose_name=_('nickname'), max_length=150, null=True, blank=True)
     avatar = models.ImageField(upload_to="images/avatars", blank=True, null=True, verbose_name=_('avatar'))
+    status = models.CharField(verbose_name=_('status'), max_length=50, choices=Status_Choices, default='offline', null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     objects = UserManager()

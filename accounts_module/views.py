@@ -25,6 +25,20 @@ class UserRegisterView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class LogOutView(APIView):
+    """
+    Block users refresh token
+    """
+    serializer_class = LogOutSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, *args):
+        sz = self.serializer_class(data=request.data)
+        sz.is_valid(raise_exception=True)
+        sz.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class UserView(APIView):
     permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = UserViewSerializer
@@ -48,17 +62,3 @@ class UserView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class LogOutView(APIView):
-    """
-    Block users refresh tokens
-    """
-    serializer_class = LogOutSerializer
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def post(self, request, *args):
-        sz = self.serializer_class(data=request.data)
-        sz.is_valid(raise_exception=True)
-        sz.save()
-        return Response(status=status.HTTP_204_NO_CONTENT)
