@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Internal apps
     'accounts_module.apps.AccountsModuleConfig',
+    'chat_module.apps.ChatModuleConfig',
     # External apps
     'drf_spectacular',
     'rest_framework_simplejwt.token_blacklist',
